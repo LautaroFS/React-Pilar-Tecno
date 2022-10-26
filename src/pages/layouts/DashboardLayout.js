@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Outlet, useLocation, useNavigate, Link as RouterLink} from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, Link as RouterLink } from 'react-router-dom';
 import {
 	AppBar,
 	Toolbar,
@@ -17,11 +17,15 @@ import {
 	Collapse,
 	Popover,
 	MenuItem as MenuItemMui,
+	Divider,
+	Stack,
 } from '@mui/material';
 import MenuIcon from "@mui/icons-material/Menu"
 import { drawerMenu, popMenu } from '../../constants/menu'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import { useSelector, useDispatch } from 'react-redux';
+import { appSelector, appActions } from '../../redux/appRedux';
 
 const drawerWidth = 280
 
@@ -147,7 +151,7 @@ const PopMenu = () => {
 				onClick={() => setOpen(true)}
 				ref={menuRef}
 			>
-				<Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+				<Avatar sx={{ width: 32, height: 32 }}>L</Avatar>
 			</IconButton>
 			<MenuPopover open={open} onClose={() => setOpen(false)}
 				anchorEl={menuRef.current} sx={{
@@ -168,7 +172,11 @@ const PopMenu = () => {
 }
 
 const DashboardLayoutt = () => {
+
 	const [open, setOpen] = useState(false)
+	const dispatch = useDispatch()
+	const pageTitle = useSelector(appSelector.pageTitle)
+
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<AppBar position="absolute">
@@ -180,16 +188,28 @@ const DashboardLayoutt = () => {
 					<Box px={2} sx={{ corsor: 'pointer' }} >
 						<MenuIcon sx={{ color: 'white' }} onClick={() => setOpen(true)} />
 					</Box>
-					<Typography
-						component="h1"
-						variant="h6"
-						color="inherit"
-						noWrap
-						sx={{ flexGrow: 1 }}
-					>
-						Pilar Tecno Web
-					</Typography>
-					<PopMenu/>
+					<Stack direction="row" spacing={2} >
+						<Typography
+							component="h1"
+							variant="h6"
+							color="inherit"
+							noWrap
+							sx={{ flexGrow: 1 }}
+						>
+							Pilar Tecno Web
+						</Typography>
+						<Divider orientacion="vertical" variant="middle" flexItem sx={{ color: "white" }} />
+						<Typography
+							component="h1"
+							variant="h6"
+							color="inherit"
+							noWrap
+							sx={{ flexGrow: 1 }}
+						>
+							{pageTitle}
+						</Typography>
+					</Stack>
+					<PopMenu />
 				</Toolbar>
 			</AppBar>
 			<SideMenu open={open} onClose={() => setOpen(false)} />
