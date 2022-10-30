@@ -11,7 +11,7 @@ import { appSelector, appActions } from '../../redux/appRedux';
 
 
 const Dashboard = () => {
-	
+
 	const dispatch = useDispatch()
 	useEffect(() => {
 		dispatch(appActions.setPageTitle('TABLERO'))
@@ -33,9 +33,9 @@ const Dashboard = () => {
 			<Grid item md={6} xs={12}>
 				<Paper sx={{ p: 2 }}>
 					<Box>
-						<Button component={Link} to="/fetch-list">
+						<Button component={Link} to="/formularios">
 							<ManageSearch />
-							FetchList
+							Formulario
 						</Button>
 					</Box>
 				</Paper>
